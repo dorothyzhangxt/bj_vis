@@ -1,0 +1,53 @@
+
+<!DOCTYPE html>
+<head>
+  <!--标题-->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.3/dist/leaflet.css"
+  integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
+  crossorigin=""/>
+  <meta charset="utf-8">
+  <style>
+
+  .kuang {
+    border:4px solid #DDD
+  }
+
+  .choose {
+    fill : red !important;
+    stroke-width : 5px
+  }
+
+
+  </style>
+  <title>Caption from Visualization</title>
+
+
+
+</head>
+<body>
+  <!--填充主体的内容-->
+
+  <div id = "mapid" style="position: absolute; top: 1 %; left: 1%; width: 60%; height: 80%; margin: 0px; padding: 0px;">
+
+  </div>
+
+   <!--  liucan js ku -->
+  <script src="https://unpkg.com/leaflet@1.3.3/dist/leaflet.js"
+   integrity="sha512-tAGcCfR4Sc5ZP5ZoVz0quoZDYX5aCtEm/eu1KhSLj2c9eFrylXZknQYmxUssFaVJKvvc0dJQixhGjG2yXWiV9Q=="
+   crossorigin=""></script>
+
+  <script >
+    var mymap = L.map('mapid').setView([39.99755, 116.319496], 13);
+    L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+        maxZoom: 18,
+        id: 'mapbox.streets',
+        accessToken: 'pk.eyJ1IjoibGl1Y2FuIiwiYSI6ImNqanNzeDcwajBjNTYzdW1ydDZmOHQ3azAifQ.Vg_vQyja_Ao756rLaTksmQ'
+    }).addTo(mymap);
+    // function load_home() {
+    //   document.getElementById("visualization").innerHTML = '<object type="text/html" data="http://vis.pku.edu.cn/~can.liu/drill_analysis/index.html" width="100%" height="100%"></object>';
+    // }
+    // load_home()
+
+  </script>
+</body>
