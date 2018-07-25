@@ -16,10 +16,15 @@
     fill : red !important;
     stroke-width : 5px
   }
+
+  #map_svg {
+    pointer-events:none
+  }
+
   #map {overflow: hidden;margin:0;font-family:"微软雅黑";}
 
   </style>
-  <title>Caption from Visualization</title>
+  <title>SummerSchool</title>
 
 
 
@@ -30,8 +35,8 @@
 
     <div id = "map" style="position: absolute;  width: 100%; height: 104%; margin: 0px; padding: 0px; overflow: hidden">
     </div>
-    <!-- <div id = "map_svg" style="position: absolute;  width: 100%; height: 100%; margin: 0px; padding: 0px; overflow: hidden">
-    </div> -->
+    <div id = "map_svg" style="position: absolute;  width: 100%; height: 100%; margin: 0px; padding: 0px; overflow: hidden">
+    </div>
   </div>
   <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=MR3Ey03BZBLzhNPyx2ohOogMx53v90C6"></script>
   <script type="text/javascript" src="http://api.map.baidu.com/library/Heatmap/2.0/src/Heatmap_min.js"></script>
@@ -45,6 +50,14 @@
 
 
   <script>
+    d3.csv("data/summerSchool.csv", function(data){
+      console.log(data)
+      // load_map()
+      load_map_svg()
+      load_svg_overlay(data)
+      // load_heat_map(data)
+    })
+
     load_map()
     // load_map_svg()
     // d3.csv("")
