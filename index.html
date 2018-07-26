@@ -19,7 +19,7 @@
   }
 
   .area {
-    fill: steelblue;
+    fill: rgb(152,221,213);
     clip-path: url(#clip);
   }
 
@@ -81,15 +81,17 @@
 </head>
 <body>
   <!--填充主体的内容-->
-  <div id = "up_part" style="position: absolute; top: 1 %; left: 1%; width: 98%; height: 86%; margin: 0px; padding: 0px;">
+  <div id = "up_part" style="position: absolute; top: 0 %; left: 0%; width: 100%; height: 99%; margin: 0px; padding: 0px;">
 
-    <div id = "map" style="position: absolute;  width: 100%; height: 110%; margin: 0px; padding: 0px; overflow: hidden">
+    <div id = "map" style="position: absolute;  width: 100%; height: 100%; margin: 0px; padding: 0px; overflow: hidden">
     </div>
     <div id = "map_svg" style="position: absolute;  width: 100%; height: 100%; margin: 0px; padding: 0px; overflow: hidden">
     </div>
   </div>
-  <div id = "time_line" style="position: absolute;  top: 85%; left: 1%;  width: 98%; height: 15%; margin: 0px; padding: 0px; overflow: hidden">
+  <div id = "time_line" style="position: absolute;  top: 80%; left: 0%;  width: 100%; height: 20%; margin: 0px; padding: 0px; overflow: hidden">
   </div>
+
+
 
   <script type = "text/javascript" src = "http://api.map.baidu.com/api?v=2.0&ak=MR3Ey03BZBLzhNPyx2ohOogMx53v90C6"></script>
   <script type = "text/javascript" src = "http://api.map.baidu.com/library/Heatmap/2.0/src/Heatmap_min.js"></script>
@@ -100,6 +102,8 @@
   <script src = "js/global_value.js"></script>
   <script src = "js/time_line.js"></script>
   <script src = "js/map_style.js"></script>
+  <script src = "js/cluster.js"></script>
+
    <!--  liucan js ku -->
   <script src="https://unpkg.com/leaflet@1.3.3/dist/leaflet.js"
    integrity="sha512-tAGcCfR4Sc5ZP5ZoVz0quoZDYX5aCtEm/eu1KhSLj2c9eFrylXZknQYmxUssFaVJKvvc0dJQixhGjG2yXWiV9Q=="
@@ -107,14 +111,18 @@
 
 
   <script>
-    d3.csv("data/small_data.csv", function(data){
+    d3.csv("data/mid_order.csv", function(data){
       console.log(data)
+      init_global_status(data)
       // load_map()
       load_map_svg(data)
+      count_time = read_data(data)
+      load_time_line(count_time)
+      load_cluster_view(data)
       // ()
       // load_heat_map(data)
     })
-    load_time_line()
+
     load_with_100()
     load_map()
 

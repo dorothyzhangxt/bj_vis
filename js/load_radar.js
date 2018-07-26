@@ -85,6 +85,9 @@ function load_radar(x, y )
 
 
 }
+function get_time(string){
+  return Date.parse(string)
+}
 
 function load_with_100(){
   load_radar(100,100)
