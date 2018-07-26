@@ -2,173 +2,7 @@ function load_map(){
   var map = new BMap.Map("map");    // 创建Map实例
   _map = map
   var mapStyle={  style : "dark" }
-  map.setMapStyle({styleJson:[
-          {
-                    "featureType": "manmade",
-                    "elementType": "all",
-                    "stylers": {
-                              "color": "#021019"
-                    }
-          },
-          {
-                    "featureType": "highway",
-                    "elementType": "geometry.fill",
-                    "stylers": {
-                              "color": "#000000"
-                    }
-          },
-          {
-                    "featureType": "highway",
-                    "elementType": "geometry.stroke",
-                    "stylers": {
-                              "color": "#147a92ff"
-                    }
-          },
-          {
-                    "featureType": "all",
-                    "elementType": "all",
-                    "stylers": {
-                              "color": "#000000"
-                    }
-          },
-          {
-                    "featureType": "arterial",
-                    "elementType": "geometry.stroke",
-                    "stylers": {
-                              "color": "#0b3d51"
-                    }
-          },
-          {
-                    "featureType": "local",
-                    "elementType": "geometry",
-                    "stylers": {
-                              "color": "#000000"
-                    }
-          },
-          {
-                    "featureType": "land",
-                    "elementType": "all",
-                    "stylers": {
-                              "color": "#08304b"
-                    }
-          },
-          {
-                    "featureType": "railway",
-                    "elementType": "geometry.fill",
-                    "stylers": {
-                              "color": "#000000"
-                    }
-          },
-          {
-                    "featureType": "railway",
-                    "elementType": "geometry.stroke",
-                    "stylers": {
-                              "color": "#08304b"
-                    }
-          },
-          {
-                    "featureType": "subway",
-                    "elementType": "geometry",
-                    "stylers": {
-                              "lightness": -70
-                    }
-          },
-          {
-                    "featureType": "building",
-                    "elementType": "geometry.fill",
-                    "stylers": {
-                              "color": "#000000"
-                    }
-          },
-          {
-                    "featureType": "all",
-                    "elementType": "labels.text.fill",
-                    "stylers": {
-                              "color": "#857f7f"
-                    }
-          },
-          {
-                    "featureType": "all",
-                    "elementType": "labels.text.stroke",
-                    "stylers": {
-                              "color": "#000000"
-                    }
-          },
-          {
-                    "featureType": "building",
-                    "elementType": "geometry",
-                    "stylers": {
-                              "color": "#147a92ff"
-                    }
-          },
-          {
-                    "featureType": "green",
-                    "elementType": "geometry",
-                    "stylers": {
-                              "color": "#062032"
-                    }
-          },
-          {
-                    "featureType": "manmade",
-                    "elementType": "geometry",
-                    "stylers": {
-                              "color": "#022338"
-                    }
-          },
-          {
-                    "featureType": "poi",
-                    "elementType": "all",
-                    "stylers": {
-                              "visibility": "off"
-                    }
-          },
-          {
-                    "featureType": "all",
-                    "elementType": "labels.icon",
-                    "stylers": {
-                              "visibility": "off"
-                    }
-          },
-          {
-                    "featureType": "all",
-                    "elementType": "labels.text.fill",
-                    "stylers": {
-                              "color": "#cfe2f3ff",
-                              "visibility": "on"
-                    }
-          },
-          {
-                    "featureType": "district",
-                    "elementType": "labels.text.fill",
-                    "stylers": {
-                              "color": "#ffffffff",
-                              "visibility": "on"
-                    }
-          },
-          {
-                    "featureType": "district",
-                    "elementType": "labels.text.stroke",
-                    "stylers": {
-                              "color": "#ff9900ff",
-                              "visibility": "on"
-                    }
-          },
-          {
-                    "featureType": "scenicspots",
-                    "elementType": "geometry.fill",
-                    "stylers": {
-                              "color": "#93c47dff"
-                    }
-          },
-          {
-                    "featureType": "education",
-                    "elementType": "geometry",
-                    "stylers": {
-                              "color": "#f4ccccff",
-                              "hue": "#2da0c6"
-                    }
-          }
-]});
+  map.setMapStyle({styleJson: map_style});
 	map.centerAndZoom(new BMap.Point(116.404, 39.915), 11);  // 初始化地图,设置中心点坐标和地图级别
   // map.addControl(new BMap.NavigationControl());
   map.setCurrentCity("北京");          // 设置地图显示的城市 此项是必须设置的
@@ -201,8 +35,14 @@ function load_map_svg(data){
 
   svg.call(d3.brush()
         .extent([[0,0],[width, height]])
-        .on("brush", brushed))
-
+        .on("brush", brushed)
+        .on("end", function(d){
+          console.log("end")
+        }))
+    //
+    svg.on("click",function(d){
+      console.log("click!!!")
+    })
 
 
   //
