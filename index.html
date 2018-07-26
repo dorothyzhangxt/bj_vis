@@ -8,6 +8,12 @@
   <meta charset="utf-8">
   <style>
 
+  path {
+    fill:none;
+    opacity:0.1;
+	  stroke:#ffffbf;
+  }
+
   .kuang {
     border:4px solid #DDD
   }
@@ -16,10 +22,34 @@
     fill : red !important;
     stroke-width : 5px
   }
-
-  #map_svg {
-    pointer-events:none
+  .point_pair .start_point{
+    opacity: 0.5 !important;
+    fill: red;
+    r: 3;
   }
+
+  .point_pair .dst_point{
+    opacity: 0.5 !important;
+    fill: blue;
+    r: 3;
+  }
+
+  .point_pair.not_show .start_point{
+    opacity: 0 !important;
+  }
+
+  .point_pair.not_show .dst_point{
+    opacity: 0 !important;
+  }
+
+  .point_pair.not_show path{
+    opacity: 0 !important;
+  }
+
+
+  /* #map_svg {
+    pointer-events:none
+  } */
 
   #map {overflow: hidden;margin:0;font-family:"微软雅黑";}
 
@@ -31,7 +61,7 @@
 </head>
 <body>
   <!--填充主体的内容-->
-  <div style="position: absolute; top: 1 %; left: 1%; width: 60%; height: 80%; margin: 0px; padding: 0px;">
+  <div style="position: absolute; top: 1 %; left: 1%; width: 98%; height: 98%; margin: 0px; padding: 0px;">
 
     <div id = "map" style="position: absolute;  width: 100%; height: 104%; margin: 0px; padding: 0px; overflow: hidden">
     </div>
@@ -53,8 +83,7 @@
     d3.csv("data/summerSchool.csv", function(data){
       console.log(data)
       // load_map()
-      load_map_svg()
-      load_svg_overlay(data)
+      load_map_svg(data)
       // load_heat_map(data)
     })
 
