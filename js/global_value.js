@@ -11,5 +11,4 @@ function init_global_status(data){
   {
     global_status.push({"geo_start": true, "geo_end": true, "cluster": true, "time": true})
   }
-  console.log("hahah",global_status)
 }

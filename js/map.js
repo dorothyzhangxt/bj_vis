@@ -38,16 +38,16 @@ function load_map_svg(data){
         .on("start", brush_begin)
         .on("brush", brushed)
         .on("end", function(d){
-          console.log("end")
+          // console.log("end")
         }))
     //
     svg.on("click",function(d){
-      console.log(d3.event)
+      // console.log(d3.event)
       // load_with_100()
       d3.select(".radar").remove()
       load_radar(d3.event.pageX, d3.event.pageY)
       // load_radar(d3.event.pageX, d3.event.pageY)
-      console.log("click!!!")
+      // console.log("click!!!")
     })
 
 
@@ -74,7 +74,7 @@ function brush_begin(d){
   }
 }
 function brushed(d){
-  console.log(d3.event)
+  // console.log(d3.event)
   //
   begin_pixel = d3.event.selection[0]
   end_pixel = d3.event.selection[1]
@@ -134,7 +134,7 @@ function update_geo(){
 
 function load_svg_overlay(data){
   var svg = d3.select("#map_svg_overlap")
-  console.log(svg)
+  // console.log(svg)
   // var points = new Array()
   // length = data.length
   // for (var i  = 0 ; i < length ; i ++ )

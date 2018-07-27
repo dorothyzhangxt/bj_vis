@@ -61,7 +61,7 @@ function load_cluster_view(data){
   svg.call(d3.brush()
         .extent([[0,0],[width, height]])
         .on("brush", function(d){
-          console.log(d3.event)
+          // console.log(d3.event)
           begin_pixel = d3.event.selection[0]
           end_pixel = d3.event.selection[1]
           d3.selectAll(".cluster_point")

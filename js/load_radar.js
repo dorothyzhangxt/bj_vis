@@ -29,8 +29,8 @@ function calculate_time(x,y){
         to_here[hour].value ++;
       }
     })
-    console.log(from_here)
-    console.log(to_here)
+    // console.log(from_here)
+    // console.log(to_here)
 
     var from  = new Array()
     var to = new Array()
@@ -40,7 +40,7 @@ function calculate_time(x,y){
     to.axes = to_here
     to.name = "to"
     data = [from, to]
-    console.log("create:",data)
+    // console.log("create:",data)
     return data
 
 }

@@ -253,7 +253,7 @@ const RadarChart = function RadarChart(radar_div, data, options) {
 	// 	.style("fill", (d) => cfg.color(d.id))
 	// 	.style("opacity", 0.8);
 	svg.on("mouseout", function(d){
-		console.log("asdfa")
+		// console.log("asdfa")
 		d3.select(".radar").remove()
 	})
 
