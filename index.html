@@ -38,16 +38,23 @@
     stroke-width : 5px
   }
   .point_pair .start_point{
-    opacity: 0.5 !important;
+    opacity: 0.7 !important;
     fill: red;
     r: 3;
   }
 
   .point_pair .dst_point{
-    opacity: 0.5 !important;
+    opacity: 0.7 !important;
     fill: blue;
     r: 3;
   }
+  .cluster_point.not_show {
+    opacity: 0.1 !important;
+  }
+  .cluster_point {
+    opacity: 0.7 !important;
+  }
+
 
   .point_pair.not_show .start_point{
     opacity: 0 !important;
@@ -111,7 +118,8 @@
 
 
   <script>
-    d3.csv("data/mid_order.csv", function(data){
+    d3.csv("data/clustering.csv", function(data){
+      _data = data
       console.log(data)
       init_global_status(data)
       // load_map()
@@ -123,7 +131,7 @@
       // load_heat_map(data)
     })
 
-    load_with_100()
+    // load_with_100()
     load_map()
 
     // load_map_svg()

@@ -35,12 +35,18 @@ function load_map_svg(data){
 
   svg.call(d3.brush()
         .extent([[0,0],[width, height]])
+        .on("start", brush_begin)
         .on("brush", brushed)
         .on("end", function(d){
           console.log("end")
         }))
     //
     svg.on("click",function(d){
+      console.log(d3.event)
+      // load_with_100()
+      d3.select(".radar").remove()
+      load_radar(d3.event.pageX, d3.event.pageY)
+      // load_radar(d3.event.pageX, d3.event.pageY)
       console.log("click!!!")
     })
 
@@ -51,6 +57,22 @@ function load_map_svg(data){
   //     .attr("height", height)
   //     .attr("opacity", 0.5);
 }
+function brush_begin(d){
+  begin = d3.event.selection[0]
+  end = d3.event.selection[1]
+  if (begin[0] != end[0] || begin[1] != end[1])
+  {
+    return
+  }
+
+  if (current_select === "geo_start"){
+    current_select = "geo_end"
+  }
+  else
+  {
+    current_select = "geo_start"
+  }
+}
 function brushed(d){
   console.log(d3.event)
   //
@@ -60,19 +82,37 @@ function brushed(d){
   // console.log(begin_point)
   // console.log(end_point)
   d3.selectAll(".point_pair")
-    .classed("not_show",function(d){
+    .each(function(d){
       x = parseFloat(d3.select(this).select(".dst_point").attr("cx"))
       y = parseFloat(d3.select(this).select(".dst_point").attr("cy"))
+      if (current_select === "geo_start"){
+        x = parseFloat(d3.select(this).select(".start_point").attr("cx"))
+        y = parseFloat(d3.select(this).select(".start_point").attr("cy"))
+      }
 
       if ( x > begin_pixel[0] && x < end_pixel[0] && y > begin_pixel[1] && y < end_pixel[1])
       {
-        return false;
+        global_status[Number(d.id)][current_select] = true
       }
       else {
-        return true;
+        global_status[Number(d.id)][current_select] = false
       }
     });
-
+  update_geo()
+  update_cluster()
+}
+function update_geo(){
+  d3.selectAll(".point_pair")
+    .classed("not_show",function(d){
+      this_status = global_status[Number(d.id)]
+      if (this_status.geo_start && this_status.geo_end && this_status.time && this_status.cluster)
+      {
+        return false
+      }
+      else {
+        return true
+      }
+    })
 }
 // function is_inside_selection(point, begin_point, end_point){
 //   lng =

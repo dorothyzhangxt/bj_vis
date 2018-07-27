@@ -1,12 +1,19 @@
+function calculate_svg(x,y){
+  d3.selectAll(".point_pair")
+    // .
+
+}
 function load_radar(x, y )
 {
   data = [1,2,23,12,17,23,8,23,8,16,19,3,12]
-  radar = d3.select("body").append("div").attr("class", "radar")
-            .style("position","absolute")
-            .style("left", x + "px")
-            .style("top", y + "px")
+  d3.select(".radar").remove()
 
-  console.log(radar[0])
+  var radar_div = d3.select("body").append("div").attr("class", "radar")
+            .style("position","absolute")
+            .style("left", (x - 50) + "px")
+            .style("top", (y - 50) + "px")
+
+  // console.log(radar)
 
   // svg = radar.append("svg")
   //   .attr("width", 100)
@@ -80,7 +87,7 @@ function load_radar(x, y )
   				color: d3.scaleOrdinal().range(["#26AF32", "#762712"]),
   				format: '.0f'
   			};
-  let svg_radar1 = RadarChart(".radar", data, radarChartOptions);
+  let svg_radar1 = RadarChart(radar_div, data, radarChartOptions);
 
 
 

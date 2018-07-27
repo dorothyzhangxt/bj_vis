@@ -61,11 +61,51 @@ function load_cluster_view(data){
   svg.call(d3.brush()
         .extent([[0,0],[width, height]])
         .on("brush", function(d){
-          console.logs(d3.event)
+          console.log(d3.event)
           begin_pixel = d3.event.selection[0]
           end_pixel = d3.event.selection[1]
           d3.selectAll(".cluster_point")
-
+            .each(function(d){
+              x = parseFloat(d3.select(this).attr("cx"))
+              y = parseFloat(d3.select(this).attr("cy"))
+              if ( x > begin_pixel[0] && x < end_pixel[0] && y > begin_pixel[1] && y < end_pixel[1])
+              {
+                global_status[Number(d.id)].cluster = true
+              }
+              else {
+                global_status[Number(d.id)].cluster = false
+              }
+            })
+            update_cluster()
+            update_geo()
         }))
+        // .on("end",function(d){
+        //   console.log(d3.event)
+        //   begin_pixel = d3.event.selection[0]
+        //   end_pixel = d3.event.selection[1]
+        //   if (begin_pixel[0] === end_pixel[0] && begin_pixel[1] === end_pixel[1]){
+        //     length = global_status.length
+        //     for (var i = 0; i < length; i ++ )
+        //     {
+        //       global_status[i].cluster = true;
+        //     }
+        //   }
+        //   update_cluster()
+        //   update_geo()
+        // }))
 
+
+}
+function update_cluster(){
+  d3.selectAll(".cluster_point")
+    .classed("not_show", function(d){
+      this_status = global_status[Number(d.id)]
+      if (this_status.geo_start && this_status.geo_end && this_status.time && this_status.cluster)
+      {
+        return false
+      }
+      else {
+        return true
+      }
+    })
 }

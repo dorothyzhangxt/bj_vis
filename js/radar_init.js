@@ -5,7 +5,7 @@ const sin = Math.sin;
 const cos = Math.cos;
 const HALF_PI = Math.PI / 2;
 
-const RadarChart = function RadarChart(parent_selector, data, options) {
+const RadarChart = function RadarChart(radar_div, data, options) {
 	//Wraps SVG text - Taken from http://bl.ocks.org/mbostock/7555321
 	const wrap = (text, width) => {
 	  text.each(function() {
@@ -86,7 +86,7 @@ const RadarChart = function RadarChart(parent_selector, data, options) {
 	/////////////////////////////////////////////////////////
 	//////////// Create the container SVG and g /////////////
 	/////////////////////////////////////////////////////////
-	const parent = d3.select(parent_selector);
+	const parent = radar_div;
 
 	//Remove whatever chart with the same id/class was present before
 	parent.select("svg").remove();
@@ -101,6 +101,9 @@ const RadarChart = function RadarChart(parent_selector, data, options) {
 	//Append a g element
 	let g = svg.append("g")
 			.attr("transform", "translate(" + (cfg.w/2 + cfg.margin.left) + "," + (cfg.h/2 + cfg.margin.top) + ")");
+	g.append("circle")
+			.attr("r", cfg.w/2)
+			.attr("opacity",1 )
 
 	// g.append("circle")
 	// 		.attr("r", cfg.w/2)
@@ -249,7 +252,10 @@ const RadarChart = function RadarChart(parent_selector, data, options) {
 	// 	.attr("cy", (d,i) => rScale(d.value) * sin(angleSlice * i - HALF_PI))
 	// 	.style("fill", (d) => cfg.color(d.id))
 	// 	.style("opacity", 0.8);
-
+	svg.on("mouseout", function(d){
+		console.log("asdfa")
+		d3.select(".radar").remove()
+	})
 
 	return svg;
 }

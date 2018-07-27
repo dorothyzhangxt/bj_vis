@@ -88,7 +88,7 @@ function load_time_line(count_time){
       .attr("transform", "translate(" + margin2.left + "," + margin2.top + ")");
 
   data = count_time
-  _data = data
+
 
     x.domain(d3.extent(data, function(d) { return d.date; }));
     y.domain([0, d3.max(data, function(d) { return d.count; })]);
@@ -134,6 +134,8 @@ function load_time_line(count_time){
 
   function brushed() {
     if (d3.event.sourceEvent && d3.event.sourceEvent.type === "zoom") return; // ignore brush-by-zoom
+    // console.log(d3.event)
+    // console.log("what???")
     var s = d3.event.selection || x2.range();
     x.domain(s.map(x2.invert, x2));
     focus.select(".area").attr("d", area);
@@ -141,6 +143,25 @@ function load_time_line(count_time){
     svg.select(".zoom").call(zoom.transform, d3.zoomIdentity
         .scale(width / (s[1] - s[0]))
         .translate(-s[0], 0));
+    _data.forEach(function(q){
+      ms = Date.parse(q.departure_time)
+      date = ms - ms % (60 * 60 * 1000)
+      // var x = d3.scaleTime().range([0, width])
+      //           .domain(d3.extent(_data, function(p) { return p.date; }));
+      // console.log(date)
+      x_this = x2(date)
+      // console.log(q.id, x_this)
+      if (x_this >= d3.event.selection[0] && x_this <= d3.event.selection[1])
+      {
+        // console.log("数字?", q.id)
+        global_status[Number(q.id)].time = true
+      }
+      else{
+        // console.log("数字", q)
+        global_status[Number(q.id)].time = false
+      }
+    })
+    update_geo()
   }
 
   function zoomed() {
@@ -150,6 +171,30 @@ function load_time_line(count_time){
     focus.select(".area").attr("d", area);
     focus.select(".axis--x").call(xAxis);
     context.select(".brush").call(brush.move, x.range().map(t.invertX, t));
+    selection = context.select(".brush").select(".selection")
+    var left = Number(selection.attr("x"))
+    var right = left + Number(selection.attr("width"))
+    console.log("left:" + left + "right:" + right)
+    _data.forEach(function(q){
+      ms = Date.parse(q.departure_time)
+      date = ms - ms % (60 * 60 * 1000)
+      // var x = d3.scaleTime().range([0, width])
+      //           .domain(d3.extent(_data, function(p) { return p.date; }));
+      // console.log(date)
+      x_this = x2(date)
+      // console.log(q.id, x_this)
+      if (x_this >= left && x_this <= right)
+      {
+        // console.log("数字?", q.id)
+        global_status[Number(q.id)].time = true
+      }
+      else{
+        // console.log("数字", q)
+        global_status[Number(q.id)].time = false
+      }
+    })
+    update_geo()
+    update_cluster()
   }
 
   function type(d) {
